@@ -25,8 +25,10 @@ jobs:
     - name: Pack 
       run: dotnet pack --output ./out --configuration Release --verbosity normal
 
-    - name: Run nbgv
-      run: echo "./out/test-actions.$NUGET_PACKAGE_VERSION.nupkg"
+    - name: Dump env context
+        env:
+          GITHUB_CONTEXT: ${{ toJson(env) }}
+        run: echo "$GITHUB_CONTEXT"
 
     - name: Create Release
       id: create_release
@@ -38,7 +40,7 @@ jobs:
         release_name: Release ${{ env.NUGET_PACKAGE_VERSION }}
         draft: false
         prerelease: false
-        
+
     # - name: Upload nupkg Release Asset
     #   uses: actions/upload-release-asset@v1
     #   env:
