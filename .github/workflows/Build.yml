@@ -25,11 +25,6 @@ jobs:
     - name: Pack 
       run: dotnet pack --output ./out --configuration Release --verbosity normal
 
-    - name: Dump env context
-        env:
-          GITHUB_CONTEXT: ${{ toJson(env) }}
-        run: echo "$GITHUB_CONTEXT"
-
     - name: Create Release
       id: create_release
       uses: actions/create-release@v1
